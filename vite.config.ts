@@ -21,9 +21,15 @@ export default defineConfig({
       input: {
         popup: "index.html",
         background: "src/background.ts",
+        content: "src/content.ts",
       },
       output: {
-        entryFileNames: "[name].js",
+        entryFileNames: (chunkInfo) => {
+          if (chunkInfo.name === "background" || chunkInfo.name === "content") {
+            return "[name].js";
+          }
+          return "assets/[name].[hash].js";
+        },
         chunkFileNames: "assets/[name].[hash].js",
         assetFileNames: "assets/[name].[ext]",
       },
