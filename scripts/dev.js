@@ -9,6 +9,8 @@ exec("npm run build", (error) => {
     return;
   }
   console.log("Initial build completed");
+  // Send message to reload extension
+  chrome.runtime.sendMessage({ type: "RELOAD_EXTENSION" });
 });
 
 // Watch for changes
@@ -25,5 +27,7 @@ watcher.on("change", (path) => {
       return;
     }
     console.log("Rebuild completed");
+    // Send message to reload extension
+    chrome.runtime.sendMessage({ type: "RELOAD_EXTENSION" });
   });
 });
